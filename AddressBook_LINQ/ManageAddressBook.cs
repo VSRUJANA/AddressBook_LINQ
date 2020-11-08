@@ -55,7 +55,7 @@ namespace AddressBook_LINQ
             }
         }
 
-        // Editing exiting Contact Details using persons's name
+        // Editing existing Contact Details using persons's name
         public void EditExistingContact()
         {
             string name = "Bruce";
@@ -70,6 +70,18 @@ namespace AddressBook_LINQ
             else
             {
                 Console.WriteLine("There is no such record in the Address Book!");
+            }
+        }
+
+        // Delete Contact using persons's name
+        public void DeleteContact(string name)
+        {
+            var rowToDelete = dataTable.AsEnumerable().Where(a => a.Field<string>("FirstName").Equals(name)).FirstOrDefault();
+            if (rowToDelete != null)
+            {
+                rowToDelete.Delete();
+                Console.WriteLine("\nContact with name '{0}' deleted successfully!", name);
+                DisplayDataTable();
             }
         }
     }

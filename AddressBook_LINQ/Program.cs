@@ -10,8 +10,9 @@ namespace AddressBook_LINQ
             ManageAddressBook manager = new ManageAddressBook();
             manager.CreateAddressBook();
             manager.InsertContacts();
-            //manager.DisplayDataTable();
-            manager.EditExistingContact();
+            // manager.DisplayDataTable();
+            // manager.EditExistingContact();
+            manager.DeleteContact("Edwin");
         }
     }
 }
