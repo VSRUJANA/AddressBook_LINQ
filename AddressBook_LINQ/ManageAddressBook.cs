@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace AddressBook_LINQ
 {
@@ -39,6 +40,7 @@ namespace AddressBook_LINQ
         // Display Address Book data table
         public void DisplayDataTable()
         {
+            Console.Write("\n");
             foreach (DataColumn col in dataTable.Columns)
             {
                 Console.Write(col.ToString().PadRight(14));
@@ -50,6 +52,24 @@ namespace AddressBook_LINQ
                 {
                     Console.Write(row[col].ToString().PadRight(14));
                 }
+            }
+        }
+
+        // Editing exiting Contact Details using persons's name
+        public void EditExistingContact()
+        {
+            string name = "Bruce";
+            var rowToUpdate = dataTable.AsEnumerable().Where(x => x.Field<string>("FirstName").Equals(name)).FirstOrDefault();
+            if (rowToUpdate != null)
+            {
+                rowToUpdate.SetField("PhoneNumber", "8300987876");
+                rowToUpdate.SetField("ZipCode", "534260");
+                Console.WriteLine("\nPhoneNumber and ZipCode of {0} updated successfully!",name);
+                DisplayDataTable();
+            }
+            else
+            {
+                Console.WriteLine("There is no such record in the Address Book!");
             }
         }
     }
