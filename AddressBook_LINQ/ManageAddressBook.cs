@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace AddressBook_LINQ
 {
@@ -24,7 +25,7 @@ namespace AddressBook_LINQ
 
         // Insert Contacts in Address book data table
         public void InsertContacts()
-        { 
+        {
             dataTable.Rows.Add("Tony", "Stark", "Stark Tower", "Manhattan", "NewYork", "100001", "8987224534", "ironman@gmail.com");
             dataTable.Rows.Add("Steve", "Rogers", "Times Square", "Brooklyn", "Texas", "1122", "9876778434", "capAmerica@yahoo.com");
             dataTable.Rows.Add("Bruce", "Banner", "Vandalia", "Dayton", "Florida", "45441", "1403425612", "hulkBuster@gmail.com");
@@ -64,7 +65,7 @@ namespace AddressBook_LINQ
             {
                 rowToUpdate.SetField("PhoneNumber", "8300987876");
                 rowToUpdate.SetField("ZipCode", "534260");
-                Console.WriteLine("\nPhoneNumber and ZipCode of {0} updated successfully!",name);
+                Console.WriteLine("\nPhoneNumber and ZipCode of {0} updated successfully!", name);
                 DisplayDataTable();
             }
             else
@@ -89,7 +90,7 @@ namespace AddressBook_LINQ
         public void RetrieveContactsByCity(string city)
         {
             var result = dataTable.AsEnumerable().Where(dr => dr.Field<string>("City") == city);
-            Console.Write("\nContacts belonging to '{0}'  city in the Address Book :\n",city);
+            Console.Write("\nContacts belonging to '{0}'  city in the Address Book :\n", city);
             foreach (DataColumn col in dataTable.Columns)
             {
                 Console.Write(col.ToString().PadRight(14));
@@ -108,8 +109,8 @@ namespace AddressBook_LINQ
         // Retrieve contacts belonging to a State from the Address Book
         public void RetrieveContactsByState(string state)
         {
-            var result = dataTable.AsEnumerable().Where(dr =>dr.Field<string>("State") == state);
-            Console.Write("\nContacts belonging to '{0}' state in the Address Book : \n",state);
+            var result = dataTable.AsEnumerable().Where(dr => dr.Field<string>("State") == state);
+            Console.Write("\nContacts belonging to '{0}' state in the Address Book : \n", state);
             foreach (DataColumn col in dataTable.Columns)
             {
                 Console.Write(col.ToString().PadRight(14));
@@ -128,18 +129,18 @@ namespace AddressBook_LINQ
         // Count contacts by City in the Address Book
         public void CountByCity()
         {
-            var query= from row in dataTable.AsEnumerable()
-                       group row by row.Field<string>("City") into city
-                       select new
-                       {
-                           City=city.Key,
-                           CountOfCity=city.Count()
-                       };
+            var query = from row in dataTable.AsEnumerable()
+                        group row by row.Field<string>("City") into city
+                        select new
+                        {
+                            City = city.Key,
+                            CountOfCity = city.Count()
+                        };
             Console.WriteLine("\nCount contacts by city in the Address Book :");
             Console.WriteLine("City\t\tCount");
             foreach (var distinctCity in query)
             {
-                Console.WriteLine(distinctCity.City.PadRight(18)+ distinctCity.CountOfCity);
+                Console.WriteLine(distinctCity.City.PadRight(18) + distinctCity.CountOfCity);
             }
         }
 
@@ -158,6 +159,26 @@ namespace AddressBook_LINQ
             foreach (var distinctState in query)
             {
                 Console.WriteLine(distinctState.State.PadRight(18) + distinctState.CountOfState);
+            }
+        }
+
+        // Sort Contacts By Name alphabetically for a given City
+        public void SortContactsByNameForAgivenCity(string city)
+        {
+            Console.WriteLine("\nSorting Contacts By Name alphabetically for a given City :");
+            foreach (DataColumn col in dataTable.Columns)
+            {
+                Console.Write(col.ToString().PadRight(14));
+            }
+            Console.Write("\n");
+            var records = dataTable.AsEnumerable().Where(r => r.Field<string>("city") == city).OrderBy(r => r.Field<string>("FirstName")).ThenBy(r => r.Field<string>("LastName"));
+            foreach (DataRow row in records)
+            {
+                foreach (DataColumn col in dataTable.Columns)
+                {
+                    Console.Write(row[col].ToString().PadRight(14));
+                }
+                Console.Write("\n");
             }
         }
     }

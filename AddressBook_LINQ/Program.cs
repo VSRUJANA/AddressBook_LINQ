@@ -15,8 +15,9 @@ namespace AddressBook_LINQ
             // manager.DeleteContact("Edwin");
             // manager.RetrieveContactsByCity("Manhattan");
             // manager.RetrieveContactsByState("Florida");
-            manager.CountByCity();
-            manager.CountByState();
+            // manager.CountByCity();
+            // manager.CountByState();
+            manager.SortContactsByNameForAgivenCity("Manhattan");
         }
     }
 }
