@@ -10,14 +10,14 @@ namespace AddressBook_LINQ
             ManageAddressBook manager = new ManageAddressBook();
             manager.CreateAddressBook();
             manager.InsertContacts();
-            // manager.DisplayDataTable();
             // manager.EditExistingContact();
             // manager.DeleteContact("Edwin");
             // manager.RetrieveContactsByCity("Manhattan");
             // manager.RetrieveContactsByState("Florida");
             // manager.CountByCity();
             // manager.CountByState();
-            manager.SortContactsByNameForAgivenCity("Manhattan");
+            // manager.SortContactsByNameForAgivenCity("Manhattan");
+            manager.DisplayDataTable();
         }
     }
 }
