@@ -13,8 +13,10 @@ namespace AddressBook_LINQ
             // manager.DisplayDataTable();
             // manager.EditExistingContact();
             // manager.DeleteContact("Edwin");
-            manager.RetrieveContactsByCity("Manhattan");
-            manager.RetrieveContactsByState("Florida");
+            // manager.RetrieveContactsByCity("Manhattan");
+            // manager.RetrieveContactsByState("Florida");
+            manager.CountByCity();
+            manager.CountByState();
         }
     }
 }
