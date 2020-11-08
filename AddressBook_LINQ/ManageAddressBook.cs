@@ -84,5 +84,46 @@ namespace AddressBook_LINQ
                 DisplayDataTable();
             }
         }
+
+        // Retrieve contacts belonging to a City from the Address Book
+        public void RetrieveContactsByCity(string city)
+        {
+            var result = dataTable.AsEnumerable().Where(dr => dr.Field<string>("City") == city);
+            Console.Write("\nContacts belonging to '{0}'  city in the Address Book :\n",city);
+            foreach (DataColumn col in dataTable.Columns)
+            {
+                Console.Write(col.ToString().PadRight(14));
+            }
+            Console.Write("\n");
+            foreach (DataRow row in result)
+            {
+                foreach (DataColumn col in dataTable.Columns)
+                {
+                    Console.Write(row[col].ToString().PadRight(14));
+                }
+                Console.Write("\n");
+            }
+        }
+
+        // Retrieve contacts belonging to a State from the Address Book
+        public void RetrieveContactsByState(string state)
+        {
+            var result = dataTable.AsEnumerable().Where(dr =>dr.Field<string>("State") == state);
+            Console.Write("\nContacts belonging to '{0}' state in the Address Book : \n",state);
+            foreach (DataColumn col in dataTable.Columns)
+            {
+                Console.Write(col.ToString().PadRight(14));
+            }
+            Console.Write("\n");
+            foreach (DataRow row in result)
+            {
+                foreach (DataColumn col in dataTable.Columns)
+                {
+                    Console.Write(row[col].ToString().PadRight(14));
+                }
+                Console.Write("\n");
+            }
+        }
+
     }
 }

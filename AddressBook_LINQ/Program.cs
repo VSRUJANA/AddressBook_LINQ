@@ -12,7 +12,9 @@ namespace AddressBook_LINQ
             manager.InsertContacts();
             // manager.DisplayDataTable();
             // manager.EditExistingContact();
-            manager.DeleteContact("Edwin");
+            // manager.DeleteContact("Edwin");
+            manager.RetrieveContactsByCity("Manhattan");
+            manager.RetrieveContactsByState("Florida");
         }
     }
 }
