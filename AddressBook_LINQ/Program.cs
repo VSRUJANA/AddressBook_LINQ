@@ -8,7 +8,9 @@ namespace AddressBook_LINQ
         {
             Console.WriteLine("Welcome to Address Book using LINQ!");
             ManageAddressBook manager = new ManageAddressBook();
-            manager.CreateAddressBook();           
+            manager.CreateAddressBook();
+            manager.InsertContacts();
+            manager.DisplayDataTable();
         }
     }
 }
