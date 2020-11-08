@@ -183,5 +183,17 @@ namespace AddressBook_LINQ
                 Console.Write("\n");
             }
         }
+
+        // Count By AddressBook Type
+        public void CountByAddressBookType()
+        {
+            var records = dataTable.AsEnumerable().GroupBy(a => a.Field<string>("BookType")).Select(x => new { type = x.Key, count = x.Count() });
+            Console.WriteLine("\nCount contacts in AddressBook By Book Type :");
+            Console.WriteLine("AddressBookType\t Count");
+            foreach (var row in records)
+            {
+                Console.WriteLine(row.type.PadRight(18) + row.count);
+            }
+        }
     }
 }

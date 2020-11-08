@@ -17,7 +17,8 @@ namespace AddressBook_LINQ
             // manager.CountByCity();
             // manager.CountByState();
             // manager.SortContactsByNameForAgivenCity("Manhattan");
-            manager.DisplayDataTable();
+            // manager.DisplayDataTable();
+            manager.CountByAddressBookType();
         }
     }
 }
