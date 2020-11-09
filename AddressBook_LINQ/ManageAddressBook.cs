@@ -62,7 +62,7 @@ namespace AddressBook_LINQ
         public void EditExistingContact()
         {
             string name = "Bruce";
-            var rowToUpdate = dataTable.AsEnumerable().Where(x => x.Field<string>("FirstName").Equals(name)).FirstOrDefault();
+            var rowToUpdate = dataTable.AsEnumerable().Where(x => x.Field<string>("FirstName").Equals(name)).First();
             if (rowToUpdate != null)
             {
                 rowToUpdate.SetField("PhoneNumber", "8300987876");
@@ -79,7 +79,7 @@ namespace AddressBook_LINQ
         // Delete Contact using persons's name
         public void DeleteContact(string name)
         {
-            var rowToDelete = dataTable.AsEnumerable().Where(a => a.Field<string>("FirstName").Equals(name)).FirstOrDefault();
+            var rowToDelete = dataTable.AsEnumerable().Where(a => a.Field<string>("FirstName").Equals(name)).First();
             if (rowToDelete != null)
             {
                 rowToDelete.Delete();
@@ -131,36 +131,24 @@ namespace AddressBook_LINQ
         // Count contacts by City in the Address Book
         public void CountByCity()
         {
-            var query = from row in dataTable.AsEnumerable()
-                        group row by row.Field<string>("City") into city
-                        select new
-                        {
-                            City = city.Key,
-                            CountOfCity = city.Count()
-                        };
+            var query = dataTable.AsEnumerable().GroupBy(a => a.Field<string>("State")).Select(x => new { city = x.Key, count = x.Count() });
             Console.WriteLine("\nCount contacts by city in the Address Book :");
             Console.WriteLine("City\t\tCount");
             foreach (var distinctCity in query)
             {
-                Console.WriteLine(distinctCity.City.PadRight(18) + distinctCity.CountOfCity);
+                Console.WriteLine(distinctCity.city.PadRight(18) + distinctCity.count);
             }
         }
 
         // Count contacts by State in the Address Book
         public void CountByState()
         {
-            var query = from row in dataTable.AsEnumerable()
-                        group row by row.Field<string>("State") into state
-                        select new
-                        {
-                            State = state.Key,
-                            CountOfState = state.Count()
-                        };
+            var query= dataTable.AsEnumerable().GroupBy(a => a.Field<string>("State")).Select(x => new { state = x.Key, count = x.Count() });
             Console.WriteLine("\nCount contacts by State in the Address Book :");
             Console.WriteLine("State\t\tCount");
             foreach (var distinctState in query)
             {
-                Console.WriteLine(distinctState.State.PadRight(18) + distinctState.CountOfState);
+                Console.WriteLine(distinctState.state.PadRight(18) + distinctState.count);
             }
         }
 
